@@ -10,20 +10,17 @@
     "eslint:check": "eslint --ext .tsx --ext .ts src/",
     "eslint:fix": "eslint --ext .tsx --ext .ts src/ --fix",
     "prettier:check": "prettier --check ./src",
-    "prettier:fix": "prettier --write ./src",
-    "prepare": "husky install"
+    "prettier:fix": "prettier --write ./src"
   },
   "dependencies": {
-    "currency.js": "^2.0.4",
+    "@tanstack/react-query": "^4.14.6",
     "expo": "~47.0.3",
     "expo-font": "^11.0.1",
     "expo-splash-screen": "^0.17.4",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
-    "react-dom": "18.1.0",
     "react-native": "0.70.5",
-    "react-native-svg": "13.4.0",
-    "react-native-web": "~0.18.9"
+    "react-native-svg": "13.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -1,3 +1,4 @@
+import COLORS from '@constants/COLORS';
 import { SvgXml } from 'react-native-svg';
 import { IconProps } from './Icon.interfaces';
 
@@ -9,7 +10,7 @@ const xml = `
 
 const CaretUpIcon = ({
   style = {},
-  color = '#7E7E7E',
+  color = COLORS.gray[800],
   size = 16,
 }: IconProps) => (
   <SvgXml xml={xml} width={size} height={size} color={color} style={style} />

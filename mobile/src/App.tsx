@@ -3,11 +3,15 @@ import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { registerRootComponent } from 'expo';
 import { useFonts } from 'expo-font';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as SplashScreen from 'expo-splash-screen';
 
 import Home from '@pages/Home';
+import COLORS from '@constants/COLORS';
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -29,7 +33,9 @@ const App = () => {
     <View style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar style="auto" />
 
-      <Home />
+      <QueryClientProvider client={queryClient}>
+        <Home />
+      </QueryClientProvider>
     </View>
   );
 };
@@ -37,7 +43,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
 });
 

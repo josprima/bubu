@@ -3,6 +3,7 @@ import CaretUpIcon from '@components/icons/CaretUp';
 import { StyleSheet, View } from 'react-native';
 import Text from '@components/text';
 import { PriceChangeIndicatorProps } from './PriceChangeIndicator.interfaces';
+import COLORS from '@constants/COLORS';
 
 const PriceChangeIndicator = ({
   priceChange,
@@ -12,21 +13,33 @@ const PriceChangeIndicator = ({
     if (priceChange.startsWith('-')) {
       return (
         <>
-          <CaretDownIcon color="#cc2323" />
+          <CaretDownIcon color={COLORS.red[600]} />
 
-          <Text style={{ color: '#cc2323' }} type="label" text={priceChange} />
+          <Text
+            style={{ color: COLORS.red[600] }}
+            type="label"
+            text={priceChange}
+          />
         </>
       );
     } else if (priceChange === '0.00') {
       return (
-        <Text style={{ color: '#303030' }} type="label" text={priceChange} />
+        <Text
+          style={{ color: COLORS.gray[800] }}
+          type="label"
+          text={priceChange}
+        />
       );
     }
 
     return (
       <>
-        <CaretUpIcon color="#4bcc4e" />
-        <Text style={{ color: '#4bcc4e' }} type="label" text={priceChange} />
+        <CaretUpIcon color={COLORS.green[600]} />
+        <Text
+          style={{ color: COLORS.green[600] }}
+          type="label"
+          text={priceChange}
+        />
       </>
     );
   };
