@@ -18,7 +18,7 @@ const PriceChangeIndicator = ({
           <Text
             style={{ color: COLORS.red[600] }}
             type="label"
-            text={priceChange}
+            text={`${priceChange}%`}
           />
         </>
       );
@@ -27,7 +27,7 @@ const PriceChangeIndicator = ({
         <Text
           style={{ color: COLORS.gray[800] }}
           type="label"
-          text={priceChange}
+          text={`${priceChange}%`}
         />
       );
     }
@@ -38,7 +38,7 @@ const PriceChangeIndicator = ({
         <Text
           style={{ color: COLORS.green[600] }}
           type="label"
-          text={priceChange}
+          text={`${priceChange}%`}
         />
       </>
     );
