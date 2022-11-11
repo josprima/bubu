@@ -2,8 +2,8 @@ import { ScrollView } from 'react-native';
 import CoinCard from '@components/coin-card';
 import SafeAreaContainer from '@components/safe-area-container';
 import Text from '@components/text';
-import useGetCoins from 'src/hooks/useGetCoins';
-import useGetPriceChanges from 'src/hooks/useGetPriceChanges';
+import useGetCoins from '@hooks/useGetCoins';
+import useGetPriceChanges from '@hooks/useGetPriceChanges';
 import CoinCardPlaceHolder from '@components/coin-card/CoinCardPlaceHolder';
 
 const Home = () => {
