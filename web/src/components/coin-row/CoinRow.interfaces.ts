@@ -10,4 +10,5 @@ export interface CoinRowProps {
     month?: string;
     year?: string;
   };
+  selectedTimeSpan: string;
 }

@@ -10,6 +10,7 @@ const CoinRow = ({
   iconUrl,
   name,
   priceChanges = {},
+  selectedTimeSpan,
 }: CoinRowProps) => {
   const [svg, setSvg] = useState('');
 
@@ -44,7 +45,7 @@ const CoinRow = ({
           ></div>
 
           <div className="flex flex-col grow md:flex-row md:items-center">
-            <h3 className="text-md font-semibold grow">{name}</h3>
+            <h3 className="text-md md:text-lg font-semibold grow">{name}</h3>
 
             <Text
               text={currencySymbol.toUpperCase()}
@@ -57,6 +58,11 @@ const CoinRow = ({
       <td className="p-2 md:p-5">
         <h3 className="text-md md:text-lg font-semibold text-right">
           {formatPrice(priceChanges.latestPrice)}
+
+          <PriceChangeIndicator
+            priceChange={priceChanges[selectedTimeSpan]}
+            className="justify-end md:hidden"
+          />
         </h3>
       </td>
       <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
