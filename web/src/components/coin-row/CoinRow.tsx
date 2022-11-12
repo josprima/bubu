@@ -2,6 +2,7 @@ import PriceChangeIndicator from '@components/price-change-indicator';
 import Text from '@components/text';
 import { formatPrice } from '@utils/currency';
 import { useEffect, useState } from 'react';
+import { CoinRowProps } from './CoinRow.interfaces';
 
 const CoinRow = ({
   color,
@@ -9,7 +10,7 @@ const CoinRow = ({
   iconUrl,
   name,
   priceChanges = {},
-}) => {
+}: CoinRowProps) => {
   const [svg, setSvg] = useState('');
 
   const fetchSvg = async () => {
@@ -34,7 +35,7 @@ const CoinRow = ({
 
   return (
     <tr key={currencySymbol} className="border-b border-slate-200">
-      <td className="p-5">
+      <td className="p-2 md:p-5">
         <div className="flex items-center w-full">
           <div
             style={{ color: color }}
@@ -42,28 +43,32 @@ const CoinRow = ({
             className="mr-3"
           ></div>
 
-          <h3 className="text-lg font-semibold grow">{name}</h3>
+          <div className="flex flex-col grow md:flex-row md:items-center">
+            <h3 className="text-md font-semibold grow">{name}</h3>
 
-          <Text
-            text={currencySymbol.toUpperCase()}
-            type="label"
-            className="w-10"
-          />
+            <Text
+              text={currencySymbol.toUpperCase()}
+              type="label"
+              className="w-10"
+            />
+          </div>
         </div>
       </td>
-      <td className="p-5 text-lg font-semibold">
-        {formatPrice(priceChanges.latestPrice)}
+      <td className="p-2 md:p-5">
+        <h3 className="text-md md:text-lg font-semibold text-right">
+          {formatPrice(priceChanges.latestPrice)}
+        </h3>
       </td>
-      <td className="p-5 text-center text-lg">
+      <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
         <PriceChangeIndicator priceChange={priceChanges.day} />
       </td>
-      <td className="p-5 text-center text-lg">
+      <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
         <PriceChangeIndicator priceChange={priceChanges.week} />
       </td>
-      <td className="p-5 text-center text-lg">
+      <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
         <PriceChangeIndicator priceChange={priceChanges.month} />
       </td>
-      <td className="p-5 text-center text-lg">
+      <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
         <PriceChangeIndicator priceChange={priceChanges.year} />
       </td>
     </tr>
