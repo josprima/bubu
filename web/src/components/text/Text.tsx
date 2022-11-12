@@ -1,16 +1,18 @@
 import { TextProps } from './Text.interfaces';
 
-const Text = ({ text, type = 'default' }: TextProps) => {
+const Text = ({ text, type = 'default', className = '' }: TextProps) => {
   if (type === 'header') {
-    return <h1>{text}</h1>;
+    return <h1 className={`text-4xl font-bold ${className}`}>{text}</h1>;
   }
 
   if (type === 'sub-header') {
-    return <h2>{text}</h2>;
+    return <h2 className={`text-lg font-bold ${className}`}>{text}</h2>;
   }
 
   if (type === 'label') {
-    return <span>{text}</span>;
+    return (
+      <span className={`text-sm text-slate-400 ${className}`}>{text}</span>
+    );
   }
 
   return <p>{text}</p>;

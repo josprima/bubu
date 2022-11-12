@@ -2,6 +2,8 @@ import type { AppProps } from 'next/app';
 import { ReactNode } from 'react';
 import { NextPage } from 'next';
 
+import '../styles/globals.scss';
+
 type Page<P = Record<string, never>> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;
 };

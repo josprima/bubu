@@ -1,3 +1,4 @@
+import CoinRow from '@components/table/CoinRow';
 import Text from '@components/text';
 import useGetCoins from '@hooks/useGetCoins';
 import useGetPriceChanges from '@hooks/useGetPriceChanges';
@@ -8,47 +9,36 @@ const Home = () => {
   const { priceChanges } = useGetPriceChanges();
 
   return (
-    <div>
-      <table cellPadding={0} cellSpacing={0}>
-        <thead>
-          <tr>
-            <td>
-              <Text text="CRYPTO" type="sub-header" />
-            </td>
-            <td>
-              <Text text="HARGA" type="sub-header" />
-            </td>
-            <td>
-              <Text text="24 JAM" type="sub-header" />
-            </td>
-            <td>
-              <Text text="1 MGG" type="sub-header" />
-            </td>
-            <td>
-              <Text text="1 BLN" type="sub-header" />
-            </td>
-            <td>
-              <Text text="1 THN" type="sub-header" />
-            </td>
-          </tr>
-        </thead>
+    <div className="container mx-auto pt-10 pb-20">
+      <Text text="Pintu Coins" type="header" className="mb-4" />
 
-        <tbody>
-          {coins.map((coin) => (
-            <tr key={coin.currencySymbol}>
-              <td>
-                {coin.name}
-                {coin.currencySymbol}
-              </td>
-              <td>{priceChanges[coin.currencyGroup]?.latestPrice}</td>
-              <td>{priceChanges[coin.currencyGroup]?.day}</td>
-              <td>{priceChanges[coin.currencyGroup]?.week}</td>
-              <td>{priceChanges[coin.currencyGroup]?.month}</td>
-              <td>{priceChanges[coin.currencyGroup]?.year}</td>
+      <div className="border border-slate-200 rounded-lg">
+        <table className="table-fixed w-full">
+          <thead>
+            <tr className="border-b border-slate-200">
+              <th className="p-5 w-32 text-left text-slate-400">CRYPTO</th>
+              <th className="p-5 w-28 text-left text-slate-400">HARGA</th>
+              <th className="p-5 w-12 text-center text-slate-400">24 JAM</th>
+              <th className="p-5 w-12 text-center text-slate-400">1 MGG</th>
+              <th className="p-5 w-12 text-center text-slate-400">1 BLN</th>
+              <th className="p-5 w-12 text-center text-slate-400">1 THN</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {coins.map((coin) => (
+              <CoinRow
+                key={coin.currencySymbol}
+                color={coin.color}
+                currencySymbol={coin.currencySymbol}
+                iconUrl={coin.logo}
+                name={coin.name}
+                priceChanges={priceChanges[coin.currencyGroup]}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
