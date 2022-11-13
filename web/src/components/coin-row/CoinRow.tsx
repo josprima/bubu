@@ -1,7 +1,7 @@
 import PriceChangeIndicator from '@components/price-change-indicator';
 import Text from '@components/text';
 import { formatPrice } from '@utils/currency';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CoinRowProps } from './CoinRow.interfaces';
 
 const CoinRow = ({
@@ -12,7 +12,9 @@ const CoinRow = ({
   priceChanges = {},
   selectedTimeSpan,
 }: CoinRowProps) => {
+  const currentPrice = useRef(null);
   const [svg, setSvg] = useState('');
+  const [priceColor, setPriceColor] = useState('text-gray-900');
 
   const fetchSvg = async () => {
     try {
@@ -29,6 +31,31 @@ const CoinRow = ({
   useEffect(() => {
     fetchSvg();
   }, []);
+
+  useEffect(() => {
+    /**
+     * Compare incomind/updated price with current price,
+     * If it's lower it's means price is down, set the price color to red,
+     * otherwise set price color to green
+     */
+    if (priceChanges.latestPrice < currentPrice.current) {
+      setPriceColor('text-red-500');
+    } else if (priceChanges.latestPrice > currentPrice.current) {
+      setPriceColor('text-green-500');
+    }
+
+    currentPrice.current = priceChanges.latestPrice;
+  }, [priceChanges]);
+
+  useEffect(() => {
+    /**
+     * Watch text color changes and
+     * set back color to default color after 1 second.
+     */
+    setTimeout(() => {
+      setPriceColor('text-gray-900');
+    }, 1000);
+  }, [priceColor]);
 
   if (!priceChanges.latestPrice) {
     return null;
@@ -56,26 +83,40 @@ const CoinRow = ({
         </div>
       </td>
       <td className="p-2 md:p-5">
-        <h3 className="text-md md:text-lg font-semibold text-right">
+        <h3
+          className={`text-md md:text-lg font-semibold text-right transition-colors ${priceColor}`}
+        >
           {formatPrice(priceChanges.latestPrice)}
-
-          <PriceChangeIndicator
-            priceChange={priceChanges[selectedTimeSpan]}
-            className="justify-end md:hidden"
-          />
         </h3>
+
+        <PriceChangeIndicator
+          priceChange={priceChanges[selectedTimeSpan]}
+          className="justify-end md:hidden"
+        />
       </td>
       <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
-        <PriceChangeIndicator priceChange={priceChanges.day} />
+        <PriceChangeIndicator
+          priceChange={priceChanges.day}
+          className="justify-center"
+        />
       </td>
       <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
-        <PriceChangeIndicator priceChange={priceChanges.week} />
+        <PriceChangeIndicator
+          priceChange={priceChanges.week}
+          className="justify-center"
+        />
       </td>
       <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
-        <PriceChangeIndicator priceChange={priceChanges.month} />
+        <PriceChangeIndicator
+          priceChange={priceChanges.month}
+          className="justify-center"
+        />
       </td>
       <td className="p-2 md:p-5 text-center text-md hidden md:table-cell">
-        <PriceChangeIndicator priceChange={priceChanges.year} />
+        <PriceChangeIndicator
+          priceChange={priceChanges.year}
+          className="justify-center"
+        />
       </td>
     </tr>
   );
