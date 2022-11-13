@@ -1,7 +1,8 @@
 import PriceChangeIndicator from '@components/price-change-indicator';
 import Text from '@components/text';
+import useGetPriceColor from '@hooks/useGetPriceColor';
+import useGetSvg from '@hooks/useGetSvg';
 import { formatPrice } from '@utils/currency';
-import { useEffect, useRef, useState } from 'react';
 import { CoinRowProps } from './CoinRow.interfaces';
 
 const CoinRow = ({
@@ -12,50 +13,8 @@ const CoinRow = ({
   priceChanges = {},
   selectedTimeSpan,
 }: CoinRowProps) => {
-  const currentPrice = useRef(null);
-  const [svg, setSvg] = useState('');
-  const [priceColor, setPriceColor] = useState('text-gray-900');
-
-  const fetchSvg = async () => {
-    try {
-      const response = await fetch(`/api/fetch-coins?url=${iconUrl}`);
-
-      const svgData = await response.text();
-
-      setSvg(svgData);
-    } catch (error) {
-      //
-    }
-  };
-
-  useEffect(() => {
-    fetchSvg();
-  }, []);
-
-  useEffect(() => {
-    /**
-     * Compare incomind/updated price with current price,
-     * If it's lower it's means price is down, set the price color to red,
-     * otherwise set price color to green
-     */
-    if (priceChanges.latestPrice < currentPrice.current) {
-      setPriceColor('text-red-500');
-    } else if (priceChanges.latestPrice > currentPrice.current) {
-      setPriceColor('text-green-500');
-    }
-
-    currentPrice.current = priceChanges.latestPrice;
-  }, [priceChanges]);
-
-  useEffect(() => {
-    /**
-     * Watch text color changes and
-     * set back color to default color after 1 second.
-     */
-    setTimeout(() => {
-      setPriceColor('text-gray-900');
-    }, 1000);
-  }, [priceColor]);
+  const priceColor = useGetPriceColor(priceChanges.latestPrice);
+  const svg = useGetSvg(iconUrl);
 
   if (!priceChanges.latestPrice) {
     return null;
