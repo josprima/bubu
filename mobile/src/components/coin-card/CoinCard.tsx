@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { TouchableHighlight, View } from 'react-native';
 import Text from '@components/text';
 import { SvgXml } from 'react-native-svg';
@@ -6,37 +5,25 @@ import { formatPrice } from '@utils/currency';
 import PriceChangeIndicator from '@components/price-change-indicator';
 import CoinCardProps from './CoinCard.interfaces';
 import COLORS from '@constants/COLORS';
+import useGetSvg from '@hooks/useGetSvg';
+import useGetPriceColor from '@hooks/useGetPriceColor';
 
 const CoinCard = ({
   iconUrl,
   iconColor,
   name,
   code,
-  price,
+  latestPrice,
   changePricePercent,
 }: CoinCardProps) => {
-  const [svg, setSvg] = useState('');
-
-  const fetchSvg = async () => {
-    try {
-      const response = await fetch(iconUrl);
-      const svgData = await response.text();
-
-      setSvg(svgData);
-    } catch (error) {
-      //
-    }
-  };
+  const svg = useGetSvg(iconUrl);
+  const priceColor = useGetPriceColor(latestPrice);
 
   const handleOnPress = () => {
     // TODO: Implement redirect to coin detail
   };
 
-  useEffect(() => {
-    fetchSvg();
-  }, []);
-
-  if (!price) {
+  if (!latestPrice) {
     return null;
   }
 
@@ -73,7 +60,12 @@ const CoinCard = ({
         </View>
 
         <View>
-          <Text type="sub-header" text={formatPrice(price)} />
+          <Text
+            type="sub-header"
+            text={formatPrice(latestPrice)}
+            style={{ color: priceColor }}
+          />
+
           <PriceChangeIndicator
             priceChange={changePricePercent}
             style={{ textAlign: 'right' }}

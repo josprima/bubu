@@ -3,7 +3,7 @@ export interface CoinCardProps {
   iconColor: string;
   name: string;
   code: string;
-  price: string;
+  latestPrice: string;
   changePricePercent: string;
 }
 

@@ -18,11 +18,13 @@ const PriceChangeIndicator = ({
           <Text
             style={{ color: COLORS.red[600] }}
             type="label"
-            text={`${priceChange}%`}
+            text={`${priceChange.split('-')[1]}%`}
           />
         </>
       );
-    } else if (priceChange === '0.00') {
+    }
+
+    if (priceChange === '0.00') {
       return (
         <Text
           style={{ color: COLORS.gray[800] }}
