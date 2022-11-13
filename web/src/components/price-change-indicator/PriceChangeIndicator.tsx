@@ -36,9 +36,11 @@ const PriceChangeIndicator = ({
 
   if (!priceChange) {
     return (
-      <h3 className="text-sm sm:text-md md:text-lg font-semibold text-gray-600">
-        0.00%
-      </h3>
+      <div className={`flex items-center ${className}`}>
+        <h3 className="text-sm sm:text-md md:text-lg font-semibold text-gray-600">
+          0.00%
+        </h3>
+      </div>
     );
   }
 
