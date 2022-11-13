@@ -1,3 +1,6 @@
+![NodeJS](https://img.shields.io/badge/NODE.JS-V16.16.0-green)
+![NPM](https://img.shields.io/badge/NPM-V8.11.0-blue)
+
 > This mobile project is created with [ReactNative](https://reactnative.dev/)
 
 # How to run
